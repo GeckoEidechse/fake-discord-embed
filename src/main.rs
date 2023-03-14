@@ -8,6 +8,10 @@ use warp::{
 
 #[tokio::main]
 async fn main() {
+    // Print own version number
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    println!("Launching v{}", VERSION);
+
     // Logging
     // Set environt variable `RUST_LOG` to `trace` or other value to enable.
     // i.e. `export RUST_LOG=trace`
