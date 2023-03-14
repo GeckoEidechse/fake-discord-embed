@@ -64,5 +64,5 @@ async fn main() {
         });
 
     println!("Starting web server");
-    warp::serve(routes).run(([0, 0, 0, 0], 8080)).await;
+    warp::serve(routes).run(([0, 0, 0, 0], 8001)).await;
 }
