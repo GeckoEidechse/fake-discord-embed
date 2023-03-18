@@ -3,6 +3,7 @@ use warp::Reply;
 
 use warp::{
     http::{Response, Uri},
+    path::FullPath,
     redirect, Filter,
 };
 
@@ -26,7 +27,13 @@ async fn main() {
     // Defining routes using warp filter
     let routes = warp::get()
         .and(warp::header::optional::<String>("user-agent"))
-        .map(|user_agent: Option<String>| {
+        .and(warp::path::full())
+        .map(|user_agent: Option<String>, full_path: FullPath| {
+
+            // Log the requested path on the server
+            let requested_path = full_path;
+            tracing::info!("Requested path: {:?}", requested_path);
+
             // Debugging print to console for user agent value
             if let Some(user_agent) = user_agent {
                 tracing::info!("User-Agent: {}", user_agent);
