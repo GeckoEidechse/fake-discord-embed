@@ -13,7 +13,7 @@ async fn main() {
     println!("Launching v{}", VERSION);
 
     // Logging
-    // Set environt variable `RUST_LOG` to `trace` or other value to enable.
+    // Set environment variable `RUST_LOG` to `trace` or other value to enable.
     // i.e. `export RUST_LOG=trace`
     let filter = std::env::var("RUST_LOG")
         .unwrap_or_else(|_| "northstar_master_server=info,warp=debug".to_owned());
