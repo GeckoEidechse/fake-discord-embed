@@ -28,11 +28,11 @@ async fn main() {
         .and(warp::header::optional::<String>("user-agent"))
         .map(|user_agent: Option<String>| {
             // Debugging print to console for user agent value
-            dbg!(user_agent.clone());
             if let Some(user_agent) = user_agent {
+                tracing::info!("User-Agent: {}", user_agent);
                 // Checking if user agent value contains any of the listed strings
                 if user_agent.to_lowercase().contains("discordbot") || user_agent.to_lowercase().contains("whatsapp") || user_agent.to_lowercase().contains("mastodon") || user_agent.to_lowercase().contains("telegrambot") {
-                    dbg!("Discordbot");
+                    tracing::info!("Sending fake preview");
                     // Return a static HTML response if user agent value matches any of the above
                     let body = r###"
                     <html>
@@ -53,7 +53,7 @@ async fn main() {
                     </html>"###;
                     warp::reply::html(body).into_response()
                 } else {
-                    dbg!("Redirecting :)");
+                    tracing::info!("Redirecting :)");
                     // Redirect to "some YouTube video" if user agent value does not match any of the above
                     redirect(Uri::from_static(
                         "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
