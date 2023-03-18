@@ -29,6 +29,7 @@ async fn main() {
         .and(warp::header::optional::<String>("user-agent"))
         .and(warp::path::full())
         .map(|user_agent: Option<String>, full_path: FullPath| {
+            tracing::info!("");
 
             // Log the requested path on the server
             let requested_path = full_path;
