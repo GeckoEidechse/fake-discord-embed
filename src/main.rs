@@ -38,7 +38,6 @@ async fn main() {
                     <html>
                         <head>
                             <title>OnlyFans</title>
-                        
                             <meta property="og:image" content="https://static.onlyfans.com/theme/onlyfans/images/og-logo.jpg?rev=202303131308-b4315db3e8">
                             <meta property="og:image:width" content="1200">
                             <meta property="og:image:height" content="628">
