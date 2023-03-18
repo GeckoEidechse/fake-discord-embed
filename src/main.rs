@@ -12,23 +12,28 @@ async fn main() {
     const VERSION: &str = env!("CARGO_PKG_VERSION");
     println!("Launching v{}", VERSION);
 
-    // Logging
+    // Logging setup
     // Set environment variable `RUST_LOG` to `trace` or other value to enable.
     // i.e. `export RUST_LOG=trace`
     let filter = std::env::var("RUST_LOG")
         .unwrap_or_else(|_| "northstar_master_server=info,warp=debug".to_owned());
+    // Setup tracing subscriber for logging
     tracing_subscriber::fmt()
         .with_env_filter(filter)
         .with_span_events(tracing_subscriber::fmt::format::FmtSpan::CLOSE)
         .init();
 
+    // Defining routes using warp filter
     let routes = warp::get()
         .and(warp::header::optional::<String>("user-agent"))
         .map(|user_agent: Option<String>| {
+            // Debugging print to console for user agent value
             dbg!(user_agent.clone());
             if let Some(user_agent) = user_agent {
+                // Checking if user agent value contains any of the listed strings
                 if user_agent.to_lowercase().contains("discordbot") || user_agent.to_lowercase().contains("whatsapp") || user_agent.to_lowercase().contains("mastodon") || user_agent.to_lowercase().contains("telegrambot") {
                     dbg!("Discordbot");
+                    // Return a static HTML response if user agent value matches any of the above
                     let body = r###"
                     <html>
                         <head>
@@ -50,12 +55,14 @@ async fn main() {
                     warp::reply::html(body).into_response()
                 } else {
                     dbg!("Redirecting :)");
+                    // Redirect to "some YouTube video" if user agent value does not match any of the above
                     redirect(Uri::from_static(
                         "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
                     ))
                     .into_response()
                 }
             } else {
+                // Return a static HTML response if no user agent value is provided
                 Response::builder()
                     .body("<html><body><h1>No user-agent header found</h1></body></html>")
                     .unwrap()
@@ -63,6 +70,7 @@ async fn main() {
             }
         });
 
+    // Start the web server
     println!("Starting web server");
     warp::serve(routes).run(([0, 0, 0, 0], 8001)).await;
 }
