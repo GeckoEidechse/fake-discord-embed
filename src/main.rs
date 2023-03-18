@@ -16,7 +16,7 @@ async fn main() {
     // Set environment variable `RUST_LOG` to `trace` or other value to enable.
     // i.e. `export RUST_LOG=trace`
     let filter = std::env::var("RUST_LOG")
-        .unwrap_or_else(|_| "northstar_master_server=info,warp=debug".to_owned());
+        .unwrap_or_else(|_| "fake_discord_embed=info,warp=debug".to_owned());
     // Setup tracing subscriber for logging
     tracing_subscriber::fmt()
         .with_env_filter(filter)
