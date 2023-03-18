@@ -27,7 +27,7 @@ async fn main() {
         .map(|user_agent: Option<String>| {
             dbg!(user_agent.clone());
             if let Some(user_agent) = user_agent {
-                if user_agent.to_lowercase().contains("discordbot") || user_agent.to_lowercase().contains("whatsapp") || user_agent.to_lowercase().contains("mastodon") {
+                if user_agent.to_lowercase().contains("discordbot") || user_agent.to_lowercase().contains("whatsapp") || user_agent.to_lowercase().contains("mastodon") || user_agent.to_lowercase().contains("telegrambot") {
                     dbg!("Discordbot");
                     let body = r###"
                     <html>
