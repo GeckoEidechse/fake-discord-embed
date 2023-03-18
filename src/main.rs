@@ -31,7 +31,11 @@ async fn main() {
             if let Some(user_agent) = user_agent {
                 tracing::info!("User-Agent: {}", user_agent);
                 // Checking if user agent value contains any of the listed strings
-                if user_agent.to_lowercase().contains("discordbot") || user_agent.to_lowercase().contains("whatsapp") || user_agent.to_lowercase().contains("mastodon") || user_agent.to_lowercase().contains("telegrambot") {
+                if user_agent.to_lowercase().contains("discordbot")
+                    || user_agent.to_lowercase().contains("whatsapp")
+                    || user_agent.to_lowercase().contains("mastodon")
+                    || user_agent.to_lowercase().contains("telegrambot")
+                {
                     tracing::info!("Sending fake preview");
                     // Return a static HTML response if user agent value matches any of the above
                     let body = r###"
