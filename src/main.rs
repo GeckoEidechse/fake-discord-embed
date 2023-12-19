@@ -43,6 +43,7 @@ async fn main() {
                     || user_agent.to_lowercase().contains("whatsapp")
                     || user_agent.to_lowercase().contains("mastodon")
                     || user_agent.to_lowercase().contains("telegrambot")
+                    || user_agent.to_lowercase().contains("slackbot")
                 {
                     tracing::info!("Sending fake preview");
                     // Return a static HTML response if user agent value matches any of the above
